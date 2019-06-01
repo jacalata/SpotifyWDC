@@ -1,13 +1,13 @@
 // The necessary configuration for your server
-// Contains credentials for your Spotify application
+// Contains credentials for your Spotify application (should be kept secret)
 // And the new redirect path for the OAuth flow
-// Should be kept secret
 
 var PORT = 3000;
 
 var os = require("os");
 var hostName = os.hostname();
-var redirectUri = "http://" + hostName + ":" + PORT + "/callback";
+var redirectUri = "http://" + 'localhost' + ":" + PORT + "/callback";
+// put in localhost because I have been getting an invalid redirect uri when using 'hostname' ... nfi why, registered it and all
 
 module.exports = {
  'PORT': PORT,

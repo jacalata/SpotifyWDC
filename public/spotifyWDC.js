@@ -5,23 +5,30 @@ var spotifyRequestor;
 (function() {
     var myConnector = tableau.makeConnector();
 
+    if (window.spotifyloginerror) { spotifyloginerrorDisplay.text = spotifyLoginError }
+
     myConnector.init = function(initCallback){
         console.log("Initializing Web Data Connector. Phase is " + tableau.phase);
 
         // STEP 1 - WDC IS LOADED
-        if (!SpotifyAuthentication.hasTokens()) {
+        var tokenResult = SpotifyAuthentication.hasTokens();
+        if (!tokenResult['success']) {
             console.log("We do not have SpotifyAuthentication tokens available");
-            if (tableau.phase != tableau.phaseEnum.gatherDataPhase) {
-                toggleUIState('signIn');
-                var redirectToSignIn = function() {
-                    // STEP 2 - REDIRECT TO LOGIN PAGE
-                    console.log("Redirecting to login page");
-                    window.location.href = "/login";
-                };
-                $("#signIn").click(redirectToSignIn);
+            toggleUIState('signIn');
+            var redirectToSignIn = function() {
+                // STEP 2 - REDIRECT TO LOGIN PAGE
+                console.log("Redirecting to login page");
+                window.location.href = "/login";
+            };
+            $("#signIn").click(redirectToSignIn);
+            if (!!tokenResult['error']){
+                console.log("Token fetch failed: " + tokenResult['error']);
+                window.spotifyloginerror = tokenResult['error'];
+                tableau.abortWithError("Token Fetch Failed - " + tokenResult['error']); // abort for auth not supported in interactive phase
+            } else if (tableau.phase != tableau.phaseEnum.gatherDataPhase) {
                 redirectToSignIn();
             } else {
-                tableau.abortForAuth("Missing SpotifyAuthentication!");
+                tableau.abortForAuth("Missing SpotifyAuthentication!"); // abort for auth not supported in interactive phase
             }
 
             // Early return here to avoid changing any other state
@@ -38,7 +45,7 @@ var spotifyRequestor;
         var s = new SpotifyWebApi();
         s.setAccessToken(SpotifyAuthentication.getAccessToken());
         spotifyRequestor = new SpotifyRequestor(s, tableau.connectionData, tableau.reportProgress);
-        
+
         console.log("Calling initCallback");
         initCallback();
 
@@ -92,7 +99,7 @@ var spotifyRequestor;
 
     //-------------------------------Connector UI---------------------------//
 
-    $(document).ready(function() {  
+    $(document).ready(function() {
         $("#getdata").click(function() { // This event fires when a button is clicked
             setupConnector();
         });
@@ -104,7 +111,7 @@ var spotifyRequestor;
         tableau.authType = tableau.authTypeEnum.custom;
         tableau.submit();
     };
-    
+
     function toggleUIState(contentToShow) {
         var allIds = [
             '#spinner',

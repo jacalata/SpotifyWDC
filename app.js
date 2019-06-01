@@ -29,6 +29,7 @@ app.get('/schema', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
+  console.log("opened login page")
   // your application requests authorization
   var scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -75,6 +76,8 @@ app.get('/callback', function(req, res) {
           refresh_token: refresh_token
         }));
     } else {
+      console.log("error fetching token: " + response.statusCode);
+      console.log(response.body)
       res.redirect('/#' +
         querystring.stringify({
           error: 'invalid_token'
