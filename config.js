@@ -1,14 +1,18 @@
 // The necessary configuration for your server
 // Contains credentials for your Spotify application (should be kept secret)
 // And the new redirect path for the OAuth flow
-
-var PORT = 3000;
+;
 
 var os = require("os");
 var hostName = process.env.hostname || os.hostname(); // for local dev use replace this with "localhost"
+
 var protocol = "";
 if (!hostName.startsWith("http")) { protocol = "http://"; }
-var redirectUri = protocol + hostName + ":" + PORT + "/callback";
+
+var PORT = ":3000"
+if (hostName.indexOf("heroku") >=  0){ PORT = ""; }
+
+var redirectUri = protocol + hostName + PORT + "/callback";
 
 module.exports = {
  'PORT': PORT,
