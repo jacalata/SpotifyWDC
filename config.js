@@ -5,9 +5,8 @@
 var PORT = 3000;
 
 var os = require("os");
-var hostName = os.hostname();
-var redirectUri = "http://" + 'localhost' + ":" + PORT + "/callback";
-// put in localhost because I have been getting an invalid redirect uri when using 'hostname' ... nfi why, registered it and all
+var hostName = os.hostname(); // for local dev use replace this with "localhost"
+var redirectUri = "http://" + hostname + ":" + PORT + "/callback";
 
 module.exports = {
  'PORT': PORT,
