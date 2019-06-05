@@ -15,7 +15,8 @@ var SpotifyAuthentication = {
     hasTokens : function() {
         console.log("Checking if we have auth tokens");
         var result = SpotifyAuthentication.getTokens();
-        return !!result.access_token && !!result.refresh_token;
+        console.log(result)
+        return {'success': !!result.access_token && !!result.refresh_token, 'error': result.error, 'tokens': result};
     },
 
     // Gets the access_token and refresh_token from either tableau.password or query hash
