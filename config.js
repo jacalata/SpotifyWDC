@@ -12,7 +12,10 @@ if (!hostName.startsWith("http")) { protocol = "http://"; }
 var PORT = ":3000"
 if (hostName.indexOf("heroku") >=  0){ PORT = ""; }
 
-var redirectUri = protocol + hostName + PORT + "/callback";
+var path = "callback";
+if (!hostName.endsWith("/")){ path = "/" + path; }
+
+var redirectUri = protocol + hostName + PORT + path;
 
 module.exports = {
  'PORT': PORT,
