@@ -7,7 +7,7 @@ var PORT = 3000;
 var os = require("os");
 var hostName = process.env.hostname || os.hostname(); // for local dev use replace this with "localhost"
 var protocol = "";
-if (!hostName.startsWith("http")) { protocol = "http://"; 
+if (!hostName.startsWith("http")) { protocol = "http://"; }
 var redirectUri = protocol + hostName + ":" + PORT + "/callback";
 
 module.exports = {
