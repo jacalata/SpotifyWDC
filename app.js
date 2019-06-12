@@ -45,6 +45,7 @@ app.get('/callback', function(req, res) {
   // STEP 3 - CODE SENT TO BACKEND
   console.log("/callback called. Exchanging code for access token");
   var code = req.query.code || null;
+  if (code == null) { console.log("No auth code received!"); }
 
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -87,6 +88,7 @@ app.get('/callback', function(req, res) {
 });
 
 app.get('/refresh_token', function(req, res) {
+  console.log("refresh_token called. Requesting new access token");
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
   var authOptions = {
@@ -94,7 +96,8 @@ app.get('/refresh_token', function(req, res) {
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
     form: {
       grant_type: 'refresh_token',
-      refresh_token: refresh_token
+      code: refresh_token,
+      redirect_uri: redirect_uri
     },
     json: true
   };
