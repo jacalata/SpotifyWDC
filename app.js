@@ -34,9 +34,9 @@ app.get('/login', function(req, res) {
   var scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read';
   var queryString = querystring.stringify({
       response_type: 'code',
+      redirect_uri: redirect_uri,
       client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri
+      scope: scope
     });
   console.log("query string is " + queryString);
   res.redirect('https://accounts.spotify.com/authorize?' + queryString);
