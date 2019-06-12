@@ -29,7 +29,7 @@ app.get('/schema', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  console.log("opened login page")
+  console.log("opened login page - callback url is " + redirect_uri)
   // your application requests authorization
   var scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
