@@ -12,3 +12,4 @@ connector is available at http://localhost:3000
 To simply run on the example connector (subject to rate limits and availability) use the url https://spotify-wdc.herokuapp.com/
 
 
+/kick
