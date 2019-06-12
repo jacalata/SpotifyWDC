@@ -32,14 +32,14 @@ app.get('/login', function(req, res) {
   console.log("opened login page - callback url is " + redirect_uri)
   // your application requests authorization
   var scope = 'user-read-private user-read-email user-top-read playlist-read-private user-library-read';
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
+  var queryString = querystring.stringify({
       response_type: 'code',
       client_id: client_id,
       scope: scope,
-      redirect_uri: redirect_uri,
-     show_dialog: true
-    }));
+      redirect_uri: redirect_uri
+    });
+  console.log("query string is " + queryString);
+  res.redirect('https://accounts.spotify.com/authorize?' + queryString);
 });
 
 app.get('/callback', function(req, res) {
