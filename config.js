@@ -16,10 +16,11 @@ var path = "callback";
 if (!hostName.endsWith("/")){ path = "/" + path; }
 
 var redirectUri = protocol + hostName + PORT + path;
-
+var spotifyHerokuClient = '8a3627fb0fad4a21b5e6b422ca21c52f';
+var spotifyHerokuSecret = '2148c4d9410a4b5c9fc5f35cea7eea45';
 module.exports = {
  'PORT': PORT,
- 'CLIENT_ID': 'f0551d1b48d241b9a21d6264c828fd7b',
- 'CLIENT_SECRET': '7931169be79e44a19a4d21e449e84a74',
+ 'CLIENT_ID': spotifyHerokuClient,
+ 'CLIENT_SECRET': spotifyHerokuSecret,
  'REDIRECT_URI': redirectUri
 };
