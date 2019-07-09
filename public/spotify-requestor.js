@@ -5,7 +5,7 @@ function SpotifyRequestor(spotifyApi, timeRange, reportProgress) {
   this.timeRange = timeRange;
   this.reportProgress = reportProgress || function() {};
   this.defaultPageSize = 50;
-  this.maxResults = 1000;
+  this.maxResults = 10000;
   this.retryCount = 3;
 }
 
